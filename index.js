@@ -1,4 +1,7 @@
 import express from 'express';
+import mongoose from 'mongoose';
+
+mongoose.connect(`mongodb://127.0.0.1/${process.env.DB_NAME}`);
 
 const app = express();
 app.use(express.json());
