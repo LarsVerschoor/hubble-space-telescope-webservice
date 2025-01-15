@@ -1,0 +1,20 @@
+{
+  "name": "hubble-space-telescope",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --env-file=.env.development --watch index.js",
+    "start": "node --env-file=.env.production index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LarsVerschoor/hubble-space-telescope"
+  },
+  "author": "Lars Verschoor",
+  "license": "MIT",
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
