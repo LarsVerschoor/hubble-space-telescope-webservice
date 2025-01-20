@@ -29,6 +29,10 @@ app.get('/photos', async (req, res) => {
     }
 });
 
+app.options('/photos', (req, res) => {
+    req.setHeader('Allow', 'GET,POST,OPTIONS')
+})
+
 app.get('/photos/:id', async (req, res) => {
     try {
         const item = (await Photo.findOne({_id: req.params.id})).toJSON();
@@ -48,6 +52,10 @@ app.get('/photos/:id', async (req, res) => {
         res.status(500).json({error: 'Internal Server Error'});
     }
 });
+
+app.options('/photos/:id', (req, res) => {
+    req.setHeader('Allow', 'GET,PUT,DELETE,OPTIONS')
+})
 
 app.post('/photos', requireContentTypeHeader, async (req, res) => {
     try {
