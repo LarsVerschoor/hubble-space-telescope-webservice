@@ -30,7 +30,8 @@ app.get('/photos', async (req, res) => {
 });
 
 app.options('/photos', (req, res) => {
-    req.setHeader('Allow', 'GET,POST,OPTIONS')
+    res.setHeader('Allow', 'GET,POST,OPTIONS');
+    res.send();
 })
 
 app.get('/photos/:id', async (req, res) => {
@@ -54,7 +55,8 @@ app.get('/photos/:id', async (req, res) => {
 });
 
 app.options('/photos/:id', (req, res) => {
-    req.setHeader('Allow', 'GET,PUT,DELETE,OPTIONS')
+    res.setHeader('Allow', 'GET,PUT,DELETE,OPTIONS');
+    res.send();
 })
 
 app.post('/photos', requireContentTypeHeader, async (req, res) => {
