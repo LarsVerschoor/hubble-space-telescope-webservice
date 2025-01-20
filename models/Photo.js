@@ -10,11 +10,11 @@ const photoSchema = new mongoose.Schema({
     toJSON: {
         transform: (doc, ret) => {
             ret.id = ret._id;
-            ret.imageUrl = `${process.env.WEBSERVICE_ORIGIN}photos/${ret.id}/image/`
+            ret.imageUrl = `http://145.24.223.230/photos/${ret.id}/image/`
 
             ret._links = {
-                self: `${process.env.WEBSERVICE_ORIGIN}photos/${ret.id}/`,
-                collection: `${process.env.WEBSERVICE_ORIGIN}photos/`
+                self: `http://145.24.223.230/photos/${ret.id}/`,
+                collection: 'http://145.24.223.230/photos/'
             }
 
             delete ret._id;
