@@ -10,7 +10,7 @@ photosController.getAllPhotos = async (req, res) => {
         const totalPages = Math.max(1, Math.ceil(count / limit));
 
         const queryParameterErrors = [];
-        if (page < 1) queryParameterErrors.push('page number must be higher than 1 because pagination starts at 1');
+        if (page < 1) queryParameterErrors.push('page number must equal or be higher than 1 because pagination starts at 1');
         if (limit < 0) queryParameterErrors.push('limit number cannot be negative')
 
         if (queryParameterErrors.length > 0) {
