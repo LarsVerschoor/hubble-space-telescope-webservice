@@ -22,7 +22,7 @@ const photoSchema = new mongoose.Schema({
                 }
             }
 
-            // delete ret._id;
+            delete ret._id;
             delete ret.__v;
             // delete ret.image;
         }

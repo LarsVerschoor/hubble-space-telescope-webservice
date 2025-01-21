@@ -4,20 +4,20 @@ const photosController = {}
 
 photosController.getAllPhotos = async (req, res) => {
     try {
-        const page = parseInt(req.query.page) ?? 0;
+        const page = parseInt(req.query.page) ?? 1;
         const count = await Photo.countDocuments({});
         const limit = parseInt(req.query.limit) ?? count;
         const totalPages = Math.max(1, Math.ceil(count / limit));
 
         const queryParameterErrors = [];
-        if (page < 0) queryParameterErrors.push('page number cannot be negative');
+        if (page < 1) queryParameterErrors.push('page number start be higher than 1 because page numbers start at 1');
         if (limit < 0) queryParameterErrors.push('limit number cannot be negative')
 
         if (queryParameterErrors.length > 0) {
             return res.status(400).json({error: `Bad query parameters: ${queryParameterErrors.join(', ')}`});
         }
 
-        const items = await Photo.find().skip((page)*limit).limit(limit);
+        const items = await Photo.find().skip((page - 1)*limit).limit(limit);
 
         res.status(200).json({
             items,
@@ -33,20 +33,20 @@ photosController.getAllPhotos = async (req, res) => {
                 totalItems: count,
                 _links: {
                     first: {
-                        page: 0,
-                        href: `${process.env.WEBSERVICE_ORIGIN}photos?limit=${limit}&page=0`
+                        page: 1,
+                        href: `${process.env.WEBSERVICE_ORIGIN}photos?page=1&limit=${limit}`
                     },
                     last: {
-                        page: totalPages - 1,
-                        href: `${process.env.WEBSERVICE_ORIGIN}photos?limit=${limit}&page=${totalPages - 1}`
+                        page: totalPages,
+                        href: `${process.env.WEBSERVICE_ORIGIN}photos?page=${totalPages}&limit=${limit}`
                     },
-                    previous: page === 0 || page - 1 > totalPages - 1 ? null : {
+                    previous: page === 1 || page > totalPages - 1 ? null : {
                         page: page - 1,
-                        href: `${process.env.WEBSERVICE_ORIGIN}photos?limit=${limit}&page=${page - 1}`
+                        href: `${process.env.WEBSERVICE_ORIGIN}photos?page=${page - 1}&limit=${limit}`
                     },
                     next: page >= totalPages - 1 ? null : {
                         page: page + 1,
-                        href: `${process.env.WEBSERVICE_ORIGIN}photos?limit=${limit}&page=${page - 1}`
+                        href: `${process.env.WEBSERVICE_ORIGIN}photos?page=${page + 1}&limit=${limit}`
                     }
                 }
             }
