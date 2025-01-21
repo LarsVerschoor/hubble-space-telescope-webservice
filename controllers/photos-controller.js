@@ -131,7 +131,6 @@ photosController.patchPhoto = async (req, res) => {
 
 photosController.deletePhoto = async (req, res) => {
     try {
-        console.log(await Photo.deleteOne({_id: req.params.id}));
         res.status(204).json({message: 'Successfully deleted photo'});
     } catch (error) {
         console.error(error);
