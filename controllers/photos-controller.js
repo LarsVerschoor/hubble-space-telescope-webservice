@@ -44,7 +44,7 @@ photosController.getAllPhotos = async (req, res) => {
                         page: page - 1,
                         href: `${process.env.WEBSERVICE_ORIGIN}photos?page=${page - 1}&limit=${limit}`
                     },
-                    next: page >= totalPages - 1 ? null : {
+                    next: page >= totalPages ? null : {
                         page: page + 1,
                         href: `${process.env.WEBSERVICE_ORIGIN}photos?page=${page + 1}&limit=${limit}`
                     }
