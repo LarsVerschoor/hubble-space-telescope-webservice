@@ -140,12 +140,12 @@ photosController.deletePhoto = async (req, res) => {
 }
 
 photosController.setOptionsHeaderOnAllPhotos = (req, res) => {
-    res.setHeader('Allow', 'GET,POST,OPTIONS');
+    res.header('Allow', 'GET,POST,OPTIONS');
     res.send();
 }
 
 photosController.setOptionsHeaderOnOnePhoto = (req, res) => {
-    res.setHeader('Allow', 'GET,PUT,PATCH,DELETE,OPTIONS');
+    res.header('Allow', 'GET,PUT,PATCH,DELETE,OPTIONS');
     res.send();
 }
 

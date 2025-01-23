@@ -3,5 +3,4 @@
 .env
 .env.development
 .env.production
-uploads/
 node_modules/
