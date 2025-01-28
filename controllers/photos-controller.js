@@ -92,7 +92,7 @@ photosController.createPhoto = async (req, res) => {
 
         const newPhoto = new Photo(req.body);
         await newPhoto.save();
-        res.status(201).json({message: 'Successfully saved photo'})
+        res.status(201).json(newPhoto.toJSON());
     } catch (error) {
         console.error(error);
         res.status(500).json({error: 'Internal Server Error'});
