@@ -1,8 +1,13 @@
 const requireContentTypeHeader = (req, res, next) => {
-    if (req.headers['content-type'] !== 'application/json' && req.headers['content-type'] !== 'application/x-www-form-urlencoded') {
-        return res.status(415).json({error: 'The Content-Type header must have the value application/json or application/x-www-form-urlencoded'});
+    const contentType = req.headers["content-type"];
+
+    if (contentType && (contentType.startsWith("application/json") || contentType.startsWith("application/x-www-form-urlencoded") || contentType.startsWith("multipart/form-data"))) {
+        return next();
     }
-    next();
-}
+
+    return res.status(415).json({
+        error: "The Content-Type header must be application/json, application/x-www-form-urlencoded, or multipart/form-data",
+    });
+};
 
 export default requireContentTypeHeader;

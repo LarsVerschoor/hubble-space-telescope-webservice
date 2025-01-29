@@ -82,15 +82,22 @@ photosController.getOnePhoto = async (req, res) => {
 photosController.createPhoto = async (req, res) => {
     try {
         const missingFields = [];
-        const {title, description, name} = req.body;
+        const {title, description, distance} = req.body;
+
         if (!title) missingFields.push('title');
         if (!description) missingFields.push('description');
-        if (!name) missingFields.push('name');
+        if (!distance) missingFields.push('distance');
+
         if (missingFields.length > 0) {
             return res.status(400).json({error: `Missing required field(s): ${missingFields.join(', ')}`});
         }
 
-        const newPhoto = new Photo(req.body);
+        const newPhoto = new Photo({
+            title: req.body.title,
+            description: req.body.description,
+            distance: req.body.distance,
+            imageFileName: req.file ? `${req.file.filename}` : null
+        });
         await newPhoto.save();
         res.status(201).json(newPhoto.toJSON());
     } catch (error) {
@@ -102,10 +109,10 @@ photosController.createPhoto = async (req, res) => {
 photosController.putPhoto = async (req, res) => {
     try {
         const missingFields = [];
-        const {title, description, name} = req.body;
+        const {title, description, distance} = req.body;
         if (!title) missingFields.push('title');
         if (!description) missingFields.push('description');
-        if (!name) missingFields.push('name');
+        if (!distance) missingFields.push('distance');
         if (missingFields.length > 0) {
             return res.status(400).json({error: `Missing required field(s): ${missingFields.join(', ')}`});
         }

@@ -2,15 +2,14 @@ import express from "express";
 import requireContentTypeHeader from "../middlewares/require-content-type-header.js";
 import requireJsonAcceptHeader from "../middlewares/require-json-accept-header.js";
 import photosController from "../controllers/photos-controller.js";
-import setCorsHeaders from "../middlewares/set-cors-headers.js";
+import parseMultipartFormData from "../middlewares/parse-multipart-form-data.js";
 
 const photosRouter = express.Router();
 photosRouter.use(requireJsonAcceptHeader);
-photosRouter.use(setCorsHeaders);
 
 photosRouter.get('/', photosController.getAllPhotos);
 photosRouter.get('/:id', photosController.getOnePhoto);
-photosRouter.post('/', requireContentTypeHeader, photosController.createPhoto);
+photosRouter.post('/', requireContentTypeHeader, parseMultipartFormData, photosController.createPhoto);
 photosRouter.delete('/:id', photosController.deletePhoto);
 photosRouter.put('/:id', requireContentTypeHeader, photosController.putPhoto);
 photosRouter.patch('/:id', requireContentTypeHeader, photosController.patchPhoto);
